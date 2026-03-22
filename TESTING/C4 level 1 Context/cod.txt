@@ -1,0 +1,20 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+title Testing Module - C4 Level 1 Context
+LAYOUT_LEFT_RIGHT()
+
+Person(tester, "Tester", "Validates full user flows")
+
+System(testingModule, "Testing Module", "Integration and validation workflows")
+
+System_Ext(frontend, "Front-End Module", "User interface")
+System_Ext(backend, "Back-End Module", "Business logic")
+System_Ext(devops, "DevOps Module", "Provides test environments")
+System_Ext(db, "Database", "Stores results and app data")
+
+Rel(tester, testingModule, "Uses")
+Rel(testingModule, frontend, "Tests UI flows")
+Rel(testingModule, backend, "Tests APIs and logic")
+Rel(testingModule, devops, "Uses test environments")
+Rel(testingModule, db, "Verifies stored data")
+@enduml

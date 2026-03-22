@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+title Testing Module - UML Use Case
+
+actor Tester
+
+rectangle "Testing Module" {
+  usecase "Test signup and login" as UC1
+  usecase "Test profile flow" as UC2
+  usecase "Test group creation" as UC3
+  usecase "Test chat flow" as UC4
+  usecase "Test voting and match" as UC5
+  usecase "Test payment flow" as UC6
+  usecase "Report defects" as UC7
+}
+
+Tester --> UC1
+Tester --> UC2
+Tester --> UC3
+Tester --> UC4
+Tester --> UC5
+Tester --> UC6
+Tester --> UC7
+@enduml

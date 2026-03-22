@@ -1,0 +1,25 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+title Testing Module - C4 Level 2 Container
+LAYOUT_TOP_DOWN()
+
+Person(tester, "Tester")
+System_Ext(frontend, "Front-End Module", "App UI")
+System_Ext(backend, "Back-End Module", "Services")
+System_Ext(devops, "DevOps Module", "Environment provisioning")
+
+System_Boundary(testB, "Testing Module") {
+  Container(testRunner, "Test Runner", "Automation Tool", "Executes test cases")
+  Container(testSuite, "Integration Test Suite", "Tests", "Covers login, groups, voting, chat and payment")
+  Container(testData, "Test Data Manager", "Support Tool", "Creates accounts and seed data")
+  Container(reporting, "Reporting Module", "Support Tool", "Stores results and defects")
+}
+
+Rel(tester, testRunner, "Starts")
+Rel(testRunner, testSuite, "Executes")
+Rel(testRunner, testData, "Uses")
+Rel(testRunner, reporting, "Writes results")
+Rel(testSuite, frontend, "Tests")
+Rel(testSuite, backend, "Tests")
+Rel(testRunner, devops, "Runs in provisioned env")
+@enduml

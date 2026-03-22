@@ -1,0 +1,54 @@
+@startuml
+title Testing Module - UML Class Diagram
+skinparam classAttributeIconSize 0
+left to right direction
+
+class TestRunner {
+  - runnerId: String
+  + executeTests()
+  + generateReport()
+}
+
+class AuthTest {
+  - scenario: String
+  + testLogin()
+  + testSignup()
+}
+
+class GroupTest {
+  - scenario: String
+  + testCreateGroup()
+  + testInviteUsers()
+}
+
+class VotingTest {
+  - scenario: String
+  + testSwipeVote()
+  + testMatchCreation()
+}
+
+class ChatTest {
+  - scenario: String
+  + testSendMessage()
+}
+
+class PaymentTest {
+  - scenario: String
+  + testPaymentFlow()
+}
+
+class TestReport {
+  - reportId: String
+  - status: String
+  - defects: List<String>
+  + addDefect()
+  + exportReport()
+}
+
+TestRunner --> AuthTest
+TestRunner --> GroupTest
+TestRunner --> VotingTest
+TestRunner --> ChatTest
+TestRunner --> PaymentTest
+TestRunner --> TestReport
+@enduml

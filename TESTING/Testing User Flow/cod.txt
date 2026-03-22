@@ -1,0 +1,28 @@
+@startuml
+title Socially - Integration Testing User Flow
+
+start
+
+:Open test version of app;
+:Create test user account;
+:Log in with test account;
+
+:Check profile and preferences;
+:Test calendar sync;
+:Create a group;
+:Invite friends;
+:Send message in chat;
+:Request activity suggestions;
+:Vote on activities;
+
+if (Match appears correctly?) then (yes)
+  :Confirm planning flow works;
+else (no)
+  :Report issue to team;
+endif
+
+:Test final event confirmation;
+:Verify saved data and app response;
+
+stop
+@enduml

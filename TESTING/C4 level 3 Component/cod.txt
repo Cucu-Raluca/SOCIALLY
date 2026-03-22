@@ -1,0 +1,78 @@
+@startuml
+title Testing Module - Component Diagram
+
+skinparam backgroundColor white
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+skinparam rectangle {
+  BackgroundColor #438DD5
+  FontColor white
+  BorderColor #2E6DA4
+}
+
+skinparam component {
+  BackgroundColor #6FA8DC
+  FontColor white
+  BorderColor #2E6DA4
+}
+
+skinparam database {
+  BackgroundColor #6FA8DC
+  FontColor white
+  BorderColor #2E6DA4
+}
+
+skinparam package {
+  BorderStyle dashed
+  BorderColor #999999
+}
+
+rectangle "Tester\n<<Person>>" as Tester
+
+package "Testing Module\n<<Container: Integration Test Suite>>" {
+
+  component "Auth Tests\n<<Component>>\nValidates signup and login flow" as AuthTests
+  component "Group Tests\n<<Component>>\nValidates group creation and invitations" as GroupTests
+  component "Voting Tests\n<<Component>>\nValidates swipe voting and match creation" as VoteTests
+  component "Chat Tests\n<<Component>>\nValidates group messaging flow" as ChatTests
+  component "Payment Tests\n<<Component>>\nValidates booking and payment flow" as PaymentTests
+  component "Assertion Engine\n<<Component>>\nChecks expected responses and states" as AssertEngine
+
+}
+
+rectangle "Front-End Module\n<<Container: Web Application>>" as FE
+rectangle "Back-End Module\n<<Container: REST API>>" as BE
+database "Main Database\n<<Container: Relational DB>>" as DB
+rectangle "Test Environment\n<<Container: Provisioned Environment>>" as Env
+
+Tester --> AuthTests : Runs
+Tester --> GroupTests : Runs
+Tester --> VoteTests : Runs
+Tester --> ChatTests : Runs
+Tester --> PaymentTests : Runs
+
+AuthTests --> FE : Tests
+AuthTests --> BE : Tests
+
+GroupTests --> FE : Tests
+GroupTests --> BE : Tests
+
+VoteTests --> FE : Tests
+VoteTests --> BE : Tests
+
+ChatTests --> FE : Tests
+ChatTests --> BE : Tests
+
+PaymentTests --> FE : Tests
+PaymentTests --> BE : Tests
+
+AuthTests --> AssertEngine : Uses
+GroupTests --> AssertEngine : Uses
+VoteTests --> AssertEngine : Uses
+ChatTests --> AssertEngine : Uses
+PaymentTests --> AssertEngine : Uses
+
+AssertEngine --> DB : Verifies data
+AssertEngine --> Env : Uses environment
+@enduml
