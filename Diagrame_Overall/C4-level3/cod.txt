@@ -1,0 +1,51 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Socially - C4 Level 3 - Component Diagram
+LAYOUT_LEFT_RIGHT()
+
+Container(web, "Web Application", "React / Web UI", "User interface")
+Container(aiEngine, "AI Recommendation Engine", "ML / Backend Service", "Generates suggestions")
+Container(calendarSync, "Calendar Sync Service", "Backend Service", "Finds common free slots")
+Container(locationService, "Location Optimization Service", "Backend Service", "Computes optimal meeting point")
+ContainerDb(db, "Main Database", "Relational Database", "Stores users, groups, events and votes")
+
+System_Boundary(planningBoundary, "Planning Service") {
+
+  Component(eventController, "EventController", "REST Controller", "Handles event creation, join and listing requests")
+  Component(groupController, "GroupController", "REST Controller", "Handles group creation and invitations")
+  Component(voteController, "VoteController", "REST Controller", "Handles swipe voting requests")
+
+  Component(eventService, "EventService", "Service", "Manages events and itineraries")
+  Component(groupService, "GroupService", "Service", "Manages groups and members")
+  Component(votingService, "VotingService", "Service", "Processes accept/reject votes and consensus")
+  Component(matchService, "MatchService", "Service", "Detects group match when all accept")
+  Component(compatibilityService, "CompatibilityService", "Service", "Computes compatibility score")
+  
+  Component(eventRepository, "EventRepository", "Repository", "Persists event data")
+  Component(groupRepository, "GroupRepository", "Repository", "Persists group data")
+  Component(voteRepository, "VoteRepository", "Repository", "Persists votes")
+}
+
+Rel(web, eventController, "Creates / joins events")
+Rel(web, groupController, "Creates groups / invites users")
+Rel(web, voteController, "Sends swipe votes")
+
+Rel(eventController, eventService, "Delegates")
+Rel(groupController, groupService, "Delegates")
+Rel(voteController, votingService, "Delegates")
+
+Rel(eventService, compatibilityService, "Requests score")
+Rel(eventService, eventRepository, "Reads/Writes events")
+Rel(groupService, groupRepository, "Reads/Writes groups")
+Rel(votingService, voteRepository, "Reads/Writes votes")
+Rel(votingService, matchService, "Checks consensus")
+
+Rel(compatibilityService, aiEngine, "Gets recommendation score")
+Rel(compatibilityService, calendarSync, "Gets shared availability")
+Rel(compatibilityService, locationService, "Gets best location suggestion")
+
+Rel(eventRepository, db, "Reads/Writes")
+Rel(groupRepository, db, "Reads/Writes")
+Rel(voteRepository, db, "Reads/Writes")
+@enduml

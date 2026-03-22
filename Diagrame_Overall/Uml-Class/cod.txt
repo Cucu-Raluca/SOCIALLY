@@ -1,0 +1,103 @@
+@startuml
+title Socially - UML Class Diagram
+
+skinparam classAttributeIconSize 0
+left to right direction
+
+class User {
+  - userId: String
+  - username: String
+  - email: String
+  - password: String
+  + register()
+  + login()
+  + updateProfile()
+}
+
+class LoggedUser {
+  - preferences: List<String>
+  - calendarSynced: boolean
+  + syncCalendar()
+  + joinEvent()
+  + voteActivity()
+  + initiateGroupPlanning()
+}
+
+class Admin {
+  + monitorSystem()
+  + manageEvents()
+}
+
+class SocialGroup {
+  - groupId: String
+  - name: String
+  - commonPreferences: String
+  + addMember()
+  + removeMember()
+  + startVoting()
+}
+
+class Event {
+  - eventId: String
+  - title: String
+  - location: String
+  - time: String
+  - price: double
+  - vibe: String
+  + createEvent()
+  + updateEvent()
+  + calculateCompatibility()
+}
+
+class Vote {
+  - voteId: String
+  - decision: boolean
+  + submitVote()
+}
+
+class ChatMessage {
+  - messageId: String
+  - content: String
+  - timestamp: String
+  + sendMessage()
+}
+
+class CalendarSyncService {
+  + syncGoogleCalendar()
+  + findCommonFreeTime()
+}
+
+class AIRecommendationEngine {
+  + generateSuggestions()
+  + refineFilters()
+  + suggestNextStep()
+}
+
+class PaymentService {
+  + processPayment()
+  + confirmPayment()
+}
+
+class LocationOptimizer {
+  + computeBestMeetingPoint()
+}
+
+User <|-- LoggedUser
+User <|-- Admin
+
+LoggedUser "1" -- "0..*" SocialGroup : joins >
+SocialGroup "1" o-- "1..*" LoggedUser : members
+
+SocialGroup "1" -- "0..*" Event : plans >
+Event "1" -- "0..*" Vote : receives >
+SocialGroup "1" -- "0..*" ChatMessage : contains >
+
+LoggedUser "1" -- "0..*" Vote : submits >
+LoggedUser "1" -- "0..*" ChatMessage : sends >
+
+LoggedUser ..> CalendarSyncService : uses
+LoggedUser ..> PaymentService : pays through
+Event ..> AIRecommendationEngine : scored by
+SocialGroup ..> AIRecommendationEngine : gets suggestions from
+SocialGroup ..> LocationOptimizer : optimized by
+@enduml

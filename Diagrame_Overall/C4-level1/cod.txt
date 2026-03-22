@@ -1,0 +1,27 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title Socially - C4 Level 1 - System Context Diagram
+LAYOUT_LEFT_RIGHT()
+
+Person(guest, "Unlogged User", "Browses public pages and creates an account")
+Person(user, "Logged User", "Uses recommendations, groups, voting and planning features")
+Person(admin, "Admin", "Monitors system stability and manages platform operations")
+
+System(socially, "Socially", "AI-powered social planning platform for groups")
+
+System_Ext(calendar, "Google Calendar API", "Provides availability synchronization")
+System_Ext(payment, "Payment Service", "Processes secure payments")
+System_Ext(ai, "AI Agent", "Generates recommendations and next-step suggestions")
+System_Ext(events, "External Event Sources", "Provides event, price and vibe data")
+
+Rel(guest, socially, "Browses public pages / signs up")
+Rel(user, socially, "Plans events, joins groups, votes, chats")
+Rel(admin, socially, "Uses admin functions")
+
+Rel(socially, calendar, "Synchronizes schedules")
+Rel(socially, payment, "Sends payment requests")
+Rel(ai, socially, "Provides intelligent suggestions")
+Rel(ai, calendar, "Reads availability data")
+Rel(ai, events, "Scans events and deals")
+@enduml

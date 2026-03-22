@@ -1,0 +1,54 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Socially - C4 Level 2 - Container Diagram
+LAYOUT_TOP_DOWN()
+
+Person(guest, "Unlogged User", "Browses public pages and registers")
+Person(user, "Logged User", "Uses planning and collaboration features")
+Person(admin, "Admin", "Manages platform operations")
+
+System_Ext(calendar, "Google Calendar API", "Calendar synchronization")
+System_Ext(payment, "Payment Service", "Secure payment processing")
+System_Ext(events, "External Event Sources", "Events, prices and activity data")
+
+System_Boundary(s1, "Socially") {
+  Container(web, "Web Application", "React / Web UI", "Map-based UI, events, groups, chat and voting")
+
+  Container(auth, "Authentication & Profile Service", "Backend Service", "Handles login, signup and profile preferences")
+  Container(planning, "Planning Service", "Backend Service", "Handles groups, events, itineraries and voting")
+  Container(calendarSync, "Calendar Sync Service", "Backend Service", "Finds common free time using Google Calendar")
+  Container(aiEngine, "AI Recommendation Engine", "ML / Backend Service", "Generates recommendations and compatibility scores")
+  Container(chatService, "Real-Time Chat Service", "WebSocket Service", "Supports live chat and instant updates")
+  Container(paymentIntegration, "Payment Integration Service", "Backend Service", "Validates and sends payment requests")
+  Container(locationService, "Location Optimization Service", "Backend Service", "Computes optimal meeting area")
+
+  ContainerDb(db, "Main Database", "Relational Database", "Stores users, preferences, groups, events, votes and history")
+  Container(cache, "Cache", "Redis / Cache", "Improves performance for live and repeated queries")
+}
+
+Rel(guest, web, "Browses / signs up")
+Rel(user, web, "Uses application")
+Rel(admin, web, "Uses admin functions")
+
+Rel(web, auth, "Sends auth/profile requests")
+Rel(web, planning, "Sends planning requests")
+Rel(web, calendarSync, "Requests common availability")
+Rel(web, aiEngine, "Requests recommendations")
+Rel(web, chatService, "Uses real-time chat")
+Rel(web, paymentIntegration, "Initiates payments")
+Rel(web, locationService, "Requests optimal meeting point")
+
+Rel(auth, db, "Reads/Writes profiles")
+Rel(planning, db, "Reads/Writes groups, events, votes")
+Rel(calendarSync, db, "Stores sync metadata")
+Rel(aiEngine, db, "Reads history and preferences")
+Rel(chatService, cache, "Stores transient live messages")
+Rel(paymentIntegration, db, "Stores transaction status")
+Rel(locationService, db, "Reads event and group data")
+
+Rel(calendarSync, calendar, "Reads availability")
+Rel(aiEngine, events, "Scans activities and prices")
+Rel(paymentIntegration, payment, "Processes payment")
+Rel(aiEngine, calendar, "Uses availability data")
+@enduml

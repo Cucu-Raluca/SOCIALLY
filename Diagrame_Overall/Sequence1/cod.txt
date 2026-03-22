@@ -1,0 +1,50 @@
+@startuml
+title Sequence 1 - Socially Group Planning Workflow
+
+actor "Logged User" as User
+participant "Web Client" as Web
+participant "Backend" as Backend
+participant "Google Calendar API" as Calendar
+participant "Main Database" as DB
+participant "AI Recommendation Engine" as AI
+participant "Payment Service" as Payment
+
+User -> Web : 1) Login / start session
+Web -> Backend : 2) Authenticate user
+Backend -> DB : 3) Load profile and preferences
+DB --> Backend : 4) Return user profile
+Backend --> Web : 5) Authentication success
+
+User -> Web : 6) Create group planning session
+Web -> Backend : 7) Send invited friends and activity idea
+Backend -> DB : 8) Load friends and group data
+DB --> Backend : 9) Return group information
+
+Backend -> Calendar : 10) Request common availability
+Calendar --> Backend : 11) Return shared free time slots
+
+Backend -> AI : 12) Request recommendations\nbased on preferences + availability
+AI -> DB : 13) Read interaction history
+DB --> AI : 14) Return user history
+AI --> Backend : 15) Return ranked suggestions
+
+Backend --> Web : 16) Return recommended events
+User -> Web : 17) Swipe vote / select preferred option
+Web -> Backend : 18) Send vote result
+Backend -> DB : 19) Save vote and planning state
+DB --> Backend : 20) Confirmation stored
+
+Backend -> AI : 21) Request next-step suggestion
+AI --> Backend : 22) Return follow-up activity suggestion
+Backend --> Web : 23) Return updated plan and suggestion
+
+User -> Web : 24) Confirm final activity
+Web -> Backend : 25) Initiate payment request
+Backend -> Payment : 26) Process payment
+Payment --> Backend : 27) Payment confirmation
+Backend -> DB : 28) Save booking and payment status
+DB --> Backend : 29) Booking stored
+
+Backend --> Web : 30) Return final confirmation
+Web --> User : 31) Display final plan and confirmation
+@enduml
