@@ -1,1 +1,34 @@
 
+@startuml
+left to right direction
+title Back-End Module - UML Use Case
+
+actor "Front-End Module" as FE
+actor Admin
+actor "Google Calendar API" as Calendar
+actor "Payment Service" as Payment
+actor "AI Engine" as AI
+
+rectangle "Back-End Module" {
+  usecase "Authenticate user" as UC1
+  usecase "Manage profiles" as UC2
+  usecase "Create groups" as UC3
+  usecase "Store votes and detect match" as UC4
+  usecase "Sync calendar" as UC5
+  usecase "Generate recommendations" as UC6
+  usecase "Process booking payment" as UC7
+  usecase "Manage event records" as UC8
+}
+
+FE --> UC1
+FE --> UC2
+FE --> UC3
+FE --> UC4
+FE --> UC5
+FE --> UC6
+FE --> UC7
+Admin --> UC8
+Calendar --> UC5
+Payment --> UC7
+AI --> UC6
+@enduml
