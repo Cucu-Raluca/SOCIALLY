@@ -1,0 +1,18 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+title Front-End Module - C4 Level 1 Context
+LAYOUT_LEFT_RIGHT()
+
+Person(user, "User", "Uses the Socially interface")
+Person(admin, "Admin", "Accesses admin pages")
+
+System(frontend, "Front-End Module", "Web UI for map, groups, chat, voting and event interaction")
+
+System_Ext(backend, "Back-End Module", "Provides business logic and data")
+System_Ext(calendar, "Google Calendar API", "Calendar sync data through backend")
+
+Rel(user, frontend, "Uses interface")
+Rel(admin, frontend, "Uses dashboard pages")
+Rel(frontend, backend, "Requests data / sends actions")
+Rel(frontend, calendar, "Displays synced availability information")
+@enduml
