@@ -1,0 +1,22 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+title DevOps Module - C4 Level 1 Context
+LAYOUT_LEFT_RIGHT()
+
+Person(devops, "DevOps Engineer", "Deploys and monitors platform")
+Person(admin, "Admin", "Views operational stability")
+
+System(devopsModule, "DevOps Module", "Deployment, monitoring and configuration support")
+
+System_Ext(frontend, "Front-End Module", "Web application")
+System_Ext(backend, "Back-End Module", "APIs and services")
+System_Ext(testing, "Testing Module", "Runs validation flows")
+System_Ext(cloud, "Cloud Infrastructure", "Hosts services")
+
+Rel(devops, devopsModule, "Uses")
+Rel(admin, devopsModule, "Views")
+Rel(devopsModule, frontend, "Deploys / monitors")
+Rel(devopsModule, backend, "Deploys / monitors")
+Rel(devopsModule, testing, "Runs pipeline checks")
+Rel(devopsModule, cloud, "Uses infrastructure")
+@enduml

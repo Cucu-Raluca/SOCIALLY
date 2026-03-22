@@ -1,0 +1,36 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+title DevOps Module - C4 Level 2 Container
+LAYOUT_TOP_DOWN()
+
+Person(devops, "DevOps Engineer", "Responsible for CI/CD, infrastructure, and monitoring")
+
+System_Ext(frontend, "Front-End Module", "Deployable app for Socially")
+System_Ext(backend, "Back-End Module", "Deployable services for Socially")
+
+System_Boundary(devopsB, "DevOps Module") {
+  
+  Container(ci, "CI Pipeline", "GitHub Actions / CI", "Builds, tests, and validates frontend and backend code before deployment")
+  Container(cd, "CD Pipeline", "Deployment Pipeline", "Deploys applications to staging and production environments")
+  Container(config, "Configuration Service", "Environment Config / Secrets Manager", "Stores environment variables, API keys, and sensitive configurations")
+  Container(monitoring, "Monitoring Stack", "ELK / Prometheus / Grafana", "Tracks uptime, performance, error logs, and metrics across services")
+  Container(infra, "Infrastructure Layer", "Cloud Resources (AWS/GCP/Azure)", "Hosts app servers, databases, networking, and storage")
+}
+
+' Interactions
+Rel(devops, ci, "Triggers CI builds and reviews results")
+Rel(devops, cd, "Triggers deployment and monitors status")
+Rel(devops, monitoring, "Reads metrics, alerts, and logs for system health")
+
+Rel(ci, frontend, "Builds, runs tests, and generates artifacts")
+Rel(ci, backend, "Builds, runs tests, and generates artifacts")
+
+Rel(cd, frontend, "Deploys artifacts to staging/production")
+Rel(cd, backend, "Deploys services to staging/production")
+Rel(cd, config, "Fetches environment-specific configuration and secrets")
+Rel(cd, infra, "Provisions and deploys cloud resources")
+
+Rel(monitoring, infra, "Monitors servers, storage, network, and performance metrics")
+Rel(monitoring, frontend, "Tracks front-end performance, errors, and uptime")
+Rel(monitoring, backend, "Tracks service health, response times, and error logs")
+@enduml

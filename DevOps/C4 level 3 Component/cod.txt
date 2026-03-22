@@ -1,0 +1,64 @@
+@startuml
+title DevOps Module - Component Diagram
+
+skinparam backgroundColor white
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+skinparam rectangle {
+  BackgroundColor #438DD5
+  FontColor white
+  BorderColor #2E6DA4
+}
+
+skinparam component {
+  BackgroundColor #6FA8DC
+  FontColor white
+  BorderColor #2E6DA4
+}
+
+skinparam database {
+  BackgroundColor #6FA8DC
+  FontColor white
+  BorderColor #2E6DA4
+}
+
+skinparam package {
+  BorderStyle dashed
+  BorderColor #999999
+}
+
+rectangle "Developer\n<<Person>>" as Dev
+rectangle "Tester\n<<Person>>" as Tester
+
+package "DevOps Module\n<<Container: CI/CD Pipeline>>" {
+
+  component "Source Trigger\n<<Component>>\nStarts pipeline on push or merge" as SourceTrigger
+  component "Build Job\n<<Component>>\nBuilds frontend and backend artifacts" as BuildJob
+  component "Test Job\n<<Component>>\nRuns automated validation checks" as TestJob
+  component "Deploy Job\n<<Component>>\nDeploys application services" as DeployJob
+  component "Secret Manager\n<<Component>>\nProvides environment variables and secrets" as SecretManager
+  component "Monitoring Connector\n<<Component>>\nSends metrics and deployment status" as MonitorConnector
+
+}
+
+rectangle "Front-End Module\n<<Container: Web Application>>" as FE
+rectangle "Back-End Module\n<<Container: REST API>>" as BE
+rectangle "Cloud Infrastructure\n<<Container: Hosting Environment>>" as Cloud
+rectangle "Monitoring Stack\n<<Container: Logs & Metrics>>" as Monitoring
+
+Dev --> SourceTrigger : Starts
+Tester --> TestJob : Reviews results
+
+SourceTrigger --> BuildJob : Triggers
+BuildJob --> TestJob : Passes artifacts
+TestJob --> DeployJob : On success
+
+DeployJob --> SecretManager : Reads config
+DeployJob --> FE : Deploys
+DeployJob --> BE : Deploys
+DeployJob --> Cloud : Deploys to
+
+DeployJob --> MonitorConnector : Sends status
+MonitorConnector --> Monitoring : Publishes metrics
+@enduml

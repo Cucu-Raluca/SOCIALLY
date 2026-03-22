@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+title DevOps Module - UML Use Case
+
+actor "DevOps Engineer" as DevOps
+actor Admin
+
+rectangle "DevOps Module" {
+  usecase "Run CI pipeline" as UC1
+  usecase "Deploy frontend" as UC2
+  usecase "Deploy backend" as UC3
+  usecase "Configure secrets" as UC4
+  usecase "Monitor logs and metrics" as UC5
+  usecase "Rollback failed release" as UC6
+}
+
+DevOps --> UC1
+DevOps --> UC2
+DevOps --> UC3
+DevOps --> UC4
+DevOps --> UC5
+DevOps --> UC6
+Admin --> UC5
+@enduml

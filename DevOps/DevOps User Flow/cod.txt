@@ -1,0 +1,25 @@
+@startuml
+title Socially - DevOps Support Flow
+
+start
+
+:Prepare application environment;
+:Set up server and database;
+:Connect frontend and backend;
+:Configure login, calendar and payment services;
+
+:Deploy new application version;
+:Check if app is online;
+if (App works correctly?) then (yes)
+  :Keep system running;
+  :Monitor performance and errors;
+else (no)
+  :Fix deployment issue;
+  :Restart or rollback version;
+endif
+
+:Ensure users can access app safely;
+:Maintain stability during usage;
+
+stop
+@enduml

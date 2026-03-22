@@ -1,0 +1,51 @@
+@startuml
+title DevOps Module - UML Class Diagram
+skinparam classAttributeIconSize 0
+left to right direction
+
+class Pipeline {
+  - pipelineId: String
+  - status: String
+  + triggerBuild()
+  + triggerDeploy()
+}
+
+class BuildJob {
+  - buildId: String
+  - artifactName: String
+  + compileFrontend()
+  + compileBackend()
+}
+
+class TestJob {
+  - testId: String
+  - result: String
+  + runTests()
+}
+
+class DeployJob {
+  - deployId: String
+  - environment: String
+  + deployApplication()
+  + rollback()
+}
+
+class EnvironmentConfig {
+  - envName: String
+  - variables: Map
+  + loadConfig()
+}
+
+class MonitoringService {
+  - logs: List<String>
+  - metrics: List<String>
+  + collectLogs()
+  + sendAlert()
+}
+
+Pipeline --> BuildJob
+Pipeline --> TestJob
+Pipeline --> DeployJob
+DeployJob --> EnvironmentConfig
+DeployJob --> MonitoringService
+@enduml
