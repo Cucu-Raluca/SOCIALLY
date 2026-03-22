@@ -1,0 +1,37 @@
+@startuml
+title Socially - Front-End User Flow
+
+start
+
+:Open Socially app;
+if (Has account?) then (yes)
+  :Log in;
+else (no)
+  :Create account;
+  :Set preferences;
+endif
+
+:Access main map page;
+:Search for an activity;
+:View suggested events;
+:Open event details;
+
+if (Wants to join existing plan?) then (yes)
+  :Join event;
+  :Open group page;
+  :Send message in group chat;
+else (no)
+  :Create new group;
+  :Invite friends;
+endif
+
+:Vote on activity with swipe;
+if (Group match achieved?) then (yes)
+  :See final matched activity;
+  :View compatibility score and vibe;
+else (no)
+  :Review other suggestions;
+endif
+
+stop
+@enduml

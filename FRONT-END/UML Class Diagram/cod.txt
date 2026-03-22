@@ -1,0 +1,59 @@
+@startuml
+title Front-End Module - UML Class Diagram
+skinparam classAttributeIconSize 0
+left to right direction
+
+class AuthPage {
+  - email: String
+  - password: String
+  + login()
+  + register()
+}
+
+class MapPage {
+  - selectedFilters: String
+  - currentLocation: String
+  + displayEvents()
+  + applyFilters()
+}
+
+class GroupPage {
+  - groupName: String
+  - messages: List<String>
+  + showGroup()
+  + sendMessage()
+}
+
+class VotingPage {
+  - currentOption: String
+  - voteState: boolean
+  + swipeLeft()
+  + swipeRight()
+  + showMatch()
+}
+
+class ApiClient {
+  + sendAuthRequest()
+  + fetchEvents()
+  + createGroup()
+  + sendVote()
+}
+
+class StateManager {
+  - sessionToken: String
+  - currentUser: String
+  - uiState: String
+  + saveState()
+  + loadState()
+}
+
+AuthPage --> ApiClient
+MapPage --> ApiClient
+GroupPage --> ApiClient
+VotingPage --> ApiClient
+
+AuthPage --> StateManager
+MapPage --> StateManager
+GroupPage --> StateManager
+VotingPage --> StateManager
+@enduml

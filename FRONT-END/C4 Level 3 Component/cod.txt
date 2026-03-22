@@ -1,0 +1,66 @@
+@startuml
+title Front-End Module - C4 Level 3 Component
+
+skinparam backgroundColor white
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+skinparam rectangle {
+  BackgroundColor #438DD5
+  FontColor white
+  BorderColor #2E6DA4
+}
+
+skinparam component {
+  BackgroundColor #6FA8DC
+  FontColor white
+  BorderColor #2E6DA4
+}
+
+skinparam database {
+  BackgroundColor #6FA8DC
+  FontColor white
+  BorderColor #2E6DA4
+}
+
+skinparam package {
+  BorderStyle dashed
+  BorderColor #999999
+}
+
+rectangle "Web Browser\n<<Person>>" as User
+rectangle "Admin\n<<Person>>" as Admin
+
+package "." {
+
+  component "Auth Page\n<<Component>>\nLogin & Signup UI" as Auth
+  component "Map Page\n<<Component>>\nEvents & Heatmap View" as Map
+  component "Group Page\n<<Component>>\nGroups & Chat UI" as Group
+  component "Voting Page\n<<Component>>\nSwipe Voting Interface" as Vote
+  component "API Client\n<<Component>>\nCalls backend endpoints" as API
+  component "State Manager\n<<Component>>\nStores session & UI state" as State
+
+}
+
+rectangle "Back-End API\n<<Container>>" as Backend
+database "Main Database\n<<Container>>" as DB
+
+User --> Auth
+User --> Map
+User --> Group
+User --> Vote
+Admin --> Group
+
+Auth --> API
+Map --> API
+Group --> API
+Vote --> API
+
+Auth --> State
+Map --> State
+Group --> State
+Vote --> State
+
+API --> Backend
+Backend --> DB
+@enduml

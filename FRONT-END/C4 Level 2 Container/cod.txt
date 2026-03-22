@@ -1,0 +1,25 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+title Front-End Module - C4 Level 2 Container
+LAYOUT_TOP_DOWN()
+
+Person(user, "User")
+Person(admin, "Admin")
+System_Ext(backend, "Back-End Module", "APIs")
+
+System_Boundary(fe, "Front-End Module") {
+  Container(webapp, "Web App", "React", "Main browser application")
+  Container(mapui, "Map UI", "UI Component", "Displays events and heatmap")
+  Container(groupui, "Group UI", "UI Component", "Groups, chat and invitations")
+  Container(voteui, "Voting UI", "UI Component", "Swipe voting")
+  Container(authui, "Auth UI", "UI Component", "Login and signup pages")
+}
+
+Rel(user, webapp, "Uses")
+Rel(admin, webapp, "Uses")
+Rel(webapp, authui, "Displays")
+Rel(webapp, mapui, "Displays")
+Rel(webapp, groupui, "Displays")
+Rel(webapp, voteui, "Displays")
+Rel(webapp, backend, "Calls APIs")
+@enduml

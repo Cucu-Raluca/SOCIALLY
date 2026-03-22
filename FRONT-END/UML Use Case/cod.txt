@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+title Front-End Module - UML Use Case
+
+actor User
+actor Admin
+
+rectangle "Front-End Module" {
+  usecase "Log in / Sign up" as UC1
+  usecase "View map and events" as UC2
+  usecase "Create or open group" as UC3
+  usecase "Send chat message" as UC4
+  usecase "Swipe vote on activity" as UC5
+  usecase "View compatibility score" as UC6
+  usecase "Access admin pages" as UC7
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+Admin --> UC7
+@enduml
