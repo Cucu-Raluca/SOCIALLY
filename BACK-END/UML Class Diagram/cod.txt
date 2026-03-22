@@ -1,1 +1,69 @@
 
+@startuml
+title Back-End Module - UML Class Diagram
+skinparam classAttributeIconSize 0
+left to right direction
+
+class User {
+  - userId: String
+  - username: String
+  - email: String
+  - preferences: List<String>
+  + updateProfile()
+  + syncCalendar()
+}
+
+class Group {
+  - groupId: String
+  - name: String
+  - members: List<User>
+  + addMember()
+  + removeMember()
+  + createMatch()
+}
+
+class Event {
+  - eventId: String
+  - title: String
+  - location: String
+  - price: double
+  - vibe: String
+  + calculateCompatibility()
+}
+
+class Vote {
+  - voteId: String
+  - decision: boolean
+  + submitVote()
+}
+
+class RecommendationService {
+  + generateSuggestions()
+}
+
+class CalendarService {
+  + findCommonFreeTime()
+}
+
+class PaymentService {
+  + processPayment()
+}
+
+class GroupManager {
+  + createGroup()
+  + inviteFriend()
+  + finalizePlan()
+}
+
+User "1" -- "0..*" Group : joins
+Group "1" o-- "1..*" User : members
+Group "1" -- "0..*" Event : contains
+User "1" -- "0..*" Vote : submits
+Event "1" -- "0..*" Vote : receives
+
+GroupManager --> Group
+GroupManager --> Event
+RecommendationService --> Event
+CalendarService --> Group
+PaymentService --> Event
+@enduml
