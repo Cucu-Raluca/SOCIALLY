@@ -1,1 +1,41 @@
 
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+title Back-End Module - C4 Level 2 Container
+LAYOUT_TOP_DOWN()
+
+System_Ext(frontend, "Front-End Module", "Calls APIs")
+System_Ext(calendar, "Google Calendar API", "Calendar")
+System_Ext(payment, "Payment Service", "Payments")
+System_Ext(ai, "AI Engine", "Recommendations")
+
+System_Boundary(be, "Back-End Module") {
+  Container(api, "REST API", "Spring Boot / Node", "Exposes endpoints")
+  Container(authService, "Auth Service", "Service", "Login and profile")
+  Container(groupService, "Group Planning Service", "Service", "Groups and invitations")
+  Container(voteService, "Voting Service", "Service", "Votes and matching")
+  Container(calendarService, "Calendar Sync Service", "Service", "Finds common free time")
+  Container(paymentService, "Payment Integration Service", "Service", "Handles payments")
+  Container(aiService, "Recommendation Adapter", "Service", "Calls AI engine")
+  ContainerDb(db, "Main Database", "Relational DB", "Stores app data")
+}
+
+Rel(frontend, api, "Calls")
+Rel(api, authService, "Delegates")
+Rel(api, groupService, "Delegates")
+Rel(api, voteService, "Delegates")
+Rel(api, calendarService, "Delegates")
+Rel(api, paymentService, "Delegates")
+Rel(api, aiService, "Delegates")
+
+Rel(authService, db, "Reads/Writes")
+Rel(groupService, db, "Reads/Writes")
+Rel(voteService, db, "Reads/Writes")
+Rel(calendarService, db, "Stores sync metadata")
+Rel(paymentService, db, "Stores payment status")
+Rel(aiService, db, "Reads preferences/history")
+
+Rel(calendarService, calendar, "Reads availability")
+Rel(paymentService, payment, "Processes payment")
+Rel(aiService, ai, "Requests suggestions")
+@enduml
