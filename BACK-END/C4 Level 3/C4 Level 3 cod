@@ -1,1 +1,40 @@
 
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+title Back-End Module - C4 Level 3 Component
+LAYOUT_LEFT_RIGHT()
+
+ContainerDb(db, "Main Database", "DB", "Stores users, groups, votes, events")
+
+System_Boundary(beapi, "REST API") {
+  Component(authController, "AuthController", "Controller", "Handles login/signup")
+  Component(groupController, "GroupController", "Controller", "Handles groups")
+  Component(voteController, "VoteController", "Controller", "Handles voting")
+  Component(eventController, "EventController", "Controller", "Handles events")
+
+  Component(authManager, "AuthManager", "Service", "Authentication logic")
+  Component(groupManager, "GroupManager", "Service", "Group planning logic")
+  Component(voteManager, "VoteManager", "Service", "Vote logic and match")
+  Component(eventManager, "EventManager", "Service", "Event handling")
+
+  Component(userRepository, "UserRepository", "Repository", "Stores users")
+  Component(groupRepository, "GroupRepository", "Repository", "Stores groups")
+  Component(voteRepository, "VoteRepository", "Repository", "Stores votes")
+  Component(eventRepository, "EventRepository", "Repository", "Stores events")
+}
+
+Rel(authController, authManager, "Uses")
+Rel(groupController, groupManager, "Uses")
+Rel(voteController, voteManager, "Uses")
+Rel(eventController, eventManager, "Uses")
+
+Rel(authManager, userRepository, "Uses")
+Rel(groupManager, groupRepository, "Uses")
+Rel(voteManager, voteRepository, "Uses")
+Rel(eventManager, eventRepository, "Uses")
+
+Rel(userRepository, db, "Reads/Writes")
+Rel(groupRepository, db, "Reads/Writes")
+Rel(voteRepository, db, "Reads/Writes")
+Rel(eventRepository, db, "Reads/Writes")
+@enduml
