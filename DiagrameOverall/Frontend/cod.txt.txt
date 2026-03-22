@@ -1,0 +1,43 @@
+@startuml
+title Socially - Frontend Development Workflow
+
+|Frontend Developer|
+start
+:Analyze UI requirements;
+:Design wireframes;
+
+|Design Tools|
+:Create UI mockups;
+:Define map-centric layout;
+
+|Frontend Developer|
+:Implement authentication pages;
+:Implement interactive map view;
+:Implement event popups;
+
+|Web Application|
+:Render UI components;
+:Handle user interactions;
+
+|Frontend Developer|
+:Implement group chat interface;
+:Implement swipe voting UI;
+:Display compatibility score;
+
+|Backend API|
+:Provide data via REST endpoints;
+
+|Frontend Developer|
+:Integrate API calls;
+:Handle loading and error states;
+
+|Web Application|
+:Update UI dynamically;
+
+|Frontend Developer|
+:Test responsiveness;
+:Fix UI bugs;
+:Prepare production build;
+
+stop
+@enduml

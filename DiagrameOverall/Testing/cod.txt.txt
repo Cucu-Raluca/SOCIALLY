@@ -1,0 +1,47 @@
+@startuml
+title Socially - Integration Testing Workflow
+
+|Integration Tester|
+start
+:Review integrated modules;
+:Prepare test scenarios;
+
+|Test Environment|
+:Create test accounts;
+:Load test data;
+:Prepare integrated environment;
+
+|Integration Tester|
+:Test signup and login flow;
+:Test profile and preferences flow;
+:Test calendar synchronization flow;
+
+|System Modules|
+:Web App;
+:Backend API;
+:Database;
+:Calendar Sync;
+:AI Engine;
+:Payment Integration;
+
+|Integration Tester|
+:Test group creation and invitations;
+:Test event recommendation flow;
+:Test swipe voting and group match;
+:Test chat and real-time updates;
+:Test payment confirmation flow;
+
+|Database|
+:Verify persistence of users, groups, votes and bookings;
+
+|Integration Tester|
+:Log integration defects;
+if (Critical defects found?) then (yes)
+  :Report issues to team;
+  :Retest after fixes;
+else (no)
+  :Approve integration workflow;
+endif
+
+stop
+@enduml
