@@ -1,1 +1,35 @@
 
+@startuml
+title Socially - Back-End User Support Flow
+
+start
+
+:User logs in or signs up;
+:System verifies account data;
+:System loads profile and preferences;
+
+:User creates or joins a group;
+:System stores group information;
+:System checks invited friends;
+
+:User syncs calendar;
+:System reads availability data;
+:System finds common free time for group;
+
+:User asks for suggestions;
+:System checks preferences, location and time;
+:System returns recommended activities;
+
+:User votes on options;
+:System saves votes;
+if (Everyone accepted?) then (yes)
+  :System creates final match;
+else (no)
+  :System keeps collecting votes;
+endif
+
+:User confirms selected activity;
+:System stores final event plan;
+
+stop
+@enduml
